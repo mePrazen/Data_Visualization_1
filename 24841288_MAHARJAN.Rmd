@@ -1,0 +1,170 @@
+---
+title: "Assignment 1 Submission"
+author: "Prajen Maharjan"
+date: "submission date"
+output:
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Statement of Contribution
+
+Include this if pairing.
+
+State what each team member has contributed to the assignment before answering the questions. Each student must contribute towards ALL questions. Your assignment will not be marked without this statement.
+
+```{r eval=FALSE, include=FALSE}
+## There are a few options in every chunk, click the setting button (greyed) near the triangle:
+# 1. to use default as in the above (show code and output, ie ECHO=TRUE) or 
+# 2. to show output only (ie ECHO=FALSE) or
+# 3. show nothing (run code) ie include=FALSE
+# 4. show nothing (dont run the code), like this chunk, ie eval=FALSE, include=FALSE
+## You can knit this template into Word and then update it into pdf etc..
+## You can create your own way for submission, this is just an example if you are going to use Rmd.
+```
+
+
+# Question 1 Normal distribution. (8 marks) 
+
+
+(a) (1 mark) Find the probability that the user spends more than 15 minutes per month at the site. 
+
+    **Answer:**
+
+0.9937
+
+```{r}
+# Answer code here
+1 - pnorm (15, 25, 4)
+```
+
+(b) (2 marks) Find the probability that the user spends between 20 and 35 minutes per month at the site.
+
+    **Answer:**
+
+0.8881
+   
+```{r}
+probability <- pnorm(35, 25, 4) - pnorm(20, 25, 4)
+probability
+0.8881406
+```
+
+(c) (2 marks) What is the amount of time per month a user spends on Facebook, if only 1\% of users spend this time or longer on Facebook? 
+
+    **Answer:**
+    
+34.3053
+
+```{r}
+time_spent <- qnorm(1- 0.01, 25, 4)
+time_spent
+34.30539
+```
+
+(d) (3 marks) Between what values do the time spent of the middle 90\% distribution of Facebook users fall? 
+
+    **Answer:**
+    
+The values lies between 18.4205 and 31.5794
+
+```{r}
+lower_bound <- qnorm(0.05, 25, 4)
+upper_bound <- qnorm(0.95, 25, 4)
+lower_bound
+18.42059
+upper_bound
+31.57941
+```
+
+
+# Question 2 Blood fat concentration (11 marks)
+
+(a) (6 marks) Conduct a two-independent sample $t$-test using R to determine whether the concentration of plasma cholesterol is significantly different between patients with no evidence of heart disease and those with narrowing of the arteries.
+
+    **Answer:**
+
+-Step 1. State the hypotheses. 
+H0 : µ1 = µ2 against H1 : µ1 ≠ µ2
+
+where µ1 and µ2 are the population means of patients with heart disease and other with no such disease respectively
+-Step 2 the test statistic is t = -4.4323 and
+-Step 3 the sampling distribution is df=69.113. 
+-Step 4 p-value = 3.42e-05 i.e 0.0000342 > 0.01.
+-Step 5 since the p-value < 0.01 (1% significance level), we reject the null hypothesis (H0)
+-Step 6 We conclude that there is a statistically significant difference in cholesterol levels between the two groups.
+
+```{r}
+mean_no_disease <- 195.2745
+mean_disease <- 216.1906
+var_no_disease <- 1303.9231
+var_disease <- 1850.2488
+n_no_disease <- 51
+n_disease <- 320
+
+group1 <- rnorm(n_no_disease, mean_no_disease, sqrt(var_no_disease))
+group2 <- rnorm(n_disease, mean_disease, sqrt(var_disease))
+t_test_result <- t.test(group1, group2, var.equal = FALSE, conf.level = 0.99)
+
+t_test_result
+```
+
+
+(b) (3 marks) Determine a 99\% confidence interval for the mean difference in concentration of plasma cholesterol between the two groups of patients.
+
+    **Answer:**
+
+    *Answer text here*
+
+(c) (2 marks) Explain the correspondence between the confidence interval in (b) and a test of the hypotheses you listed in question (a).
+
+    **Answer:**
+
+    *Answer text here*
+
+# Question 3 Regression (31 marks) 
+
+(a) (2 marks) Fit a simple linear model $M_1$ to these data. Present the appropriate scatterplot and plot the fitted line onto the scatterplot. Comment about the output in a few concise sentences.
+
+    **Answer:**
+
+    *Answer text here*
+
+(b) (5 marks) Provide the model summary and diagnostics checking plots for model $M_1.$ Does the straight line regression model $M_1$ seem to fit the data well? Comment about the output in a few concise sentences. 
+
+    **Answer:**
+
+    *Answer text here*
+
+(c) (5 marks) Do you think there are outliers or influential points in the data? What influence do these points have on the model fit? Use leverage and Cook's distance for this investigation. 
+
+    **Answer:**
+
+    *Answer text here*
+
+(d) (4 marks) Fit a regression model to the transformed $M_2$ model. Present the appropriate scatterplot and plot the fitted line onto the scatterplot. Does the transformed line regression model $M_2$ seem to fit the data well? Comment about the output in a few concise sentences.
+
+    **Answer:**
+
+    *Answer text here*
+
+(e) (5 marks) Provide the model summary and diagnostics checking plots for model $M_2.$ Does the straight line regression model $M_2$ seem to fit the data well? Comment about the output in a few concise sentences.
+
+    **Answer:**
+
+    *Answer text here*
+
+(f) (4 marks) Perform a hypothesis testing for a positive slope at a significance level of 5\% based on model $M_2.$
+
+    **Answer:**
+
+    *Answer text here*
+
+(g) (6 marks) Compare a 95\% confidence interval of the mean response and a 95\% prediction interval for a new value when Tonnage = 10,000 using the untransformed model $M_1$ and transformed model $M_2$ respectively. Provide two scatterplots that consist the fitted model, the confidence and prediction intervals for each of $M_1$ and $M_2$ respectively. Comment about the output in a few concise sentences.
+
+    **Answer:**
+
+    *Answer text here*
